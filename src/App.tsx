@@ -2,8 +2,8 @@
 
 import { Canvas } from "@react-three/fiber"
 import { ScrollControls, Scroll } from "@react-three/drei"
-import { Scene } from "@/components/landing/scene"
-import { Overlay } from "@/components/landing/overlay"
+import { Scene } from "../components/landing/scene"
+import { Overlay } from "../components/landing/overlay"
 
 export default function App() {
   return (

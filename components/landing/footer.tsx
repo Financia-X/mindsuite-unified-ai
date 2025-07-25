@@ -1,5 +1,5 @@
-import { MindSuiteLogo } from "@/components/landing/logo"
-import { footerLinks } from "@/lib/data"
+import { MindSuiteLogo } from "./logo"
+import { footerLinks } from "../../lib/data"
 
 export function Footer() {
   return (

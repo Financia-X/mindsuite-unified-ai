@@ -1,6 +1,6 @@
 "use client"
-import { Button } from "@/components/ui/button"
-import { MindSuiteLogo } from "@/components/landing/logo"
+import { Button } from "../ui/button"
+import { MindSuiteLogo } from "./logo"
 
 export function Header() {
   return (

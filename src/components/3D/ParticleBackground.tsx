@@ -13,10 +13,10 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
   
   // Generate particle positions in Earth shape
   const particles = useMemo(() => {
-    const positions = new Float32Array(2000 * 3);
-    const colors = new Float32Array(2000 * 3);
+    const positions = new Float32Array(1000 * 3);
+    const colors = new Float32Array(1000 * 3);
     
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 1000; i++) {
       // Create Earth-like distribution with more density at the surface
       const earthRadius = 10;
       const surfaceDensity = Math.random() < 0.7; // 70% on surface, 30% in atmosphere

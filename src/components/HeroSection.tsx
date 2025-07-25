@@ -38,28 +38,26 @@ const HeroSection = () => {
             </div>
 
             {/* Main Headline */}
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                <span className="block">The Unified</span>
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 <span className="block bg-gradient-to-r from-electric-blue via-violet to-soft-pink bg-clip-text text-transparent">
-                  Workspace
+                  70+ AI Tools.
                 </span>
-                <span className="block">of the Future</span>
+                <span className="block">One Workspace.</span>
+                <span className="block text-electric-blue">
+                  Superpowers for Every Role.
+                </span>
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-                All your work, powered by AI. <span className="text-electric-blue font-semibold">70+ intelligent tools.</span> One platform.
-              </p>
-              
-              <p className="text-base md:text-lg text-muted-foreground/80 max-w-2xl">
-                Whether you're a student, CXO, developer, or lawyer — MindSuite helps you work faster, smarter, and more creatively with AI at your side.
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-medium">
+                The unified AI platform that transforms how you work across every industry and role.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="electric-gradient hover:scale-105 transition-transform duration-300 text-lg px-8 py-6">
-                Try for Free
+              <Button size="lg" className="electric-gradient hover:scale-105 transition-transform duration-300 text-lg px-8 py-6 shadow-lg hover:shadow-electric">
+                Explore MindSuite
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               
@@ -67,10 +65,10 @@ const HeroSection = () => {
                 size="lg" 
                 variant="outline" 
                 onClick={scrollToDemo}
-                className="glass border-electric-blue/30 hover:border-electric-blue/50 text-lg px-8 py-6 hover:bg-electric-blue/10"
+                className="glass border-electric-blue/30 hover:border-electric-blue/50 text-lg px-8 py-6 hover:bg-electric-blue/10 backdrop-blur-xl"
               >
                 <Play className="mr-2 h-5 w-5" />
-                See How It Works
+                See Demo
               </Button>
             </div>
 

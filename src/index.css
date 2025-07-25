@@ -138,6 +138,10 @@ All colors MUST be HSL.
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   /* Glass Morphism Effects */
   .glass {
     background: hsl(var(--glass) / 0.8);
@@ -196,6 +200,13 @@ All colors MUST be HSL.
     animation: rotate-cube 20s linear infinite;
   }
 
+  @media (max-width: 768px) {
+    .cube-3d {
+      width: 150px !important;
+      height: 150px !important;
+    }
+  }
+
   .cube-face {
     position: absolute;
     width: 200px;
@@ -203,6 +214,20 @@ All colors MUST be HSL.
     border: 2px solid hsl(var(--electric-blue) / 0.3);
     background: hsl(var(--glass) / 0.1);
     backdrop-filter: blur(10px);
+  }
+
+  @media (max-width: 768px) {
+    .cube-face {
+      width: 150px !important;
+      height: 150px !important;
+    }
+    
+    .cube-face:nth-child(1) { transform: rotateY(0deg) translateZ(75px); }
+    .cube-face:nth-child(2) { transform: rotateY(90deg) translateZ(75px); }
+    .cube-face:nth-child(3) { transform: rotateY(180deg) translateZ(75px); }
+    .cube-face:nth-child(4) { transform: rotateY(-90deg) translateZ(75px); }
+    .cube-face:nth-child(5) { transform: rotateX(90deg) translateZ(75px); }
+    .cube-face:nth-child(6) { transform: rotateX(-90deg) translateZ(75px); }
   }
 
   .cube-face:nth-child(1) { transform: rotateY(0deg) translateZ(100px); }

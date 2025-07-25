@@ -1,6 +1,8 @@
+import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import PersonaSection from "@/components/PersonaSection";
 import ToolsSection from "@/components/ToolsSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
 import AISection from "@/components/AISection";
 import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -9,14 +11,22 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Hero Section */}
-      <HeroSection />
+      <div className="pt-20">
+        <HeroSection />
+      </div>
       
       {/* Built for Everyone Section */}
       <PersonaSection />
       
       {/* 70+ Tools Section */}
       <ToolsSection />
+      
+      {/* How It Works Section */}
+      <HowItWorksSection />
       
       {/* AI Features Section */}
       <AISection />

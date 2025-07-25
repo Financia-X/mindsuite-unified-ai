@@ -100,8 +100,9 @@ const toolCategories = [
       { name: "OnboardMind", description: "New hire journeys", icon: Gift },
       { name: "BenefitMind", description: "Benefits management", icon: Building },
       { name: "WorkplaceMind", description: "Culture & policy AI", icon: UserCheck },
-      { name: "InterviewMind", description: "AI interview grader & OA tool", icon: UserSearch },
-      { name: "MailMind", description: "AI HR mail generator", icon: Mail }
+      { name: "InterviewMind", description: "Resume screening & interview prep", icon: UserSearch },
+      { name: "MailMind", description: "AI email assistant (write, summarize, reply)", icon: Mail },
+      { name: "JobMind", description: "Internal gig board & hiring tasks", icon: Briefcase }
     ]
   },
   {
@@ -197,9 +198,11 @@ const toolCategories = [
     name: "MSME & Business Tools",
     description: "Essential tools for small and medium enterprises",
     tools: [
-      { name: "InvoiceMind", description: "Invoicing", icon: Receipt },
-      { name: "TaxMind", description: "Tax filing", icon: Calculator },
-      { name: "BizMind", description: "AI suggestions for MSMEs", icon: Lightbulb }
+      { name: "InvoiceMind", description: "Smart invoicing & GST compliance", icon: Receipt },
+      { name: "TaxMind", description: "Tax filing & insights", icon: Calculator },
+      { name: "BusinessMind", description: "MSME insights (invoicing, reports, compliance)", icon: Lightbulb },
+      { name: "FundMind", description: "Grants, VC deck & pitch preparation", icon: TrendingUp },
+      { name: "FinanceMind", description: "Financial planning & cashflow analytics", icon: DollarSign }
     ]
   }
 ];

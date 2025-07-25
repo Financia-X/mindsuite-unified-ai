@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { Float, Sphere, MeshDistortMaterial, Stars } from '@react-three/drei';
+import { Float, Sphere, Stars } from '@react-three/drei';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -19,14 +19,13 @@ function FloatingShapes() {
     <group ref={groupRef}>
       {/* Main central sphere */}
       <Float speed={1.5} rotationIntensity={1} floatIntensity={2}>
-        <Sphere args={[1.2, 64, 64]} position={[2, 0, -3]}>
-          <MeshDistortMaterial
+        <Sphere args={[1.2, 32, 32]} position={[2, 0, -3]}>
+          <meshStandardMaterial
             color="#6366f1"
-            attach="material"
-            distort={0.3}
-            speed={2}
-            opacity={0.8}
             transparent
+            opacity={0.6}
+            emissive="#6366f1"
+            emissiveIntensity={0.1}
           />
         </Sphere>
       </Float>
@@ -34,26 +33,24 @@ function FloatingShapes() {
       {/* Secondary spheres */}
       <Float speed={2} rotationIntensity={2} floatIntensity={1}>
         <Sphere args={[0.6, 32, 32]} position={[-3, 2, -2]}>
-          <MeshDistortMaterial
+          <meshStandardMaterial
             color="#8b5cf6"
-            attach="material"
-            distort={0.4}
-            speed={3}
-            opacity={0.6}
             transparent
+            opacity={0.4}
+            emissive="#8b5cf6"
+            emissiveIntensity={0.1}
           />
         </Sphere>
       </Float>
 
       <Float speed={1.8} rotationIntensity={1.5} floatIntensity={1.5}>
         <Sphere args={[0.8, 32, 32]} position={[1, -2, -4]}>
-          <MeshDistortMaterial
+          <meshStandardMaterial
             color="#06b6d4"
-            attach="material"
-            distort={0.2}
-            speed={1.5}
-            opacity={0.7}
             transparent
+            opacity={0.5}
+            emissive="#06b6d4"
+            emissiveIntensity={0.1}
           />
         </Sphere>
       </Float>
@@ -61,26 +58,24 @@ function FloatingShapes() {
       {/* Small accent spheres */}
       <Float speed={3} rotationIntensity={3} floatIntensity={0.5}>
         <Sphere args={[0.3, 16, 16]} position={[-1, 1, -1]}>
-          <MeshDistortMaterial
+          <meshStandardMaterial
             color="#ec4899"
-            attach="material"
-            distort={0.5}
-            speed={4}
-            opacity={0.5}
             transparent
+            opacity={0.3}
+            emissive="#ec4899"
+            emissiveIntensity={0.1}
           />
         </Sphere>
       </Float>
 
       <Float speed={2.5} rotationIntensity={2.5} floatIntensity={0.8}>
         <Sphere args={[0.4, 16, 16]} position={[3, 1.5, -1.5]}>
-          <MeshDistortMaterial
+          <meshStandardMaterial
             color="#10b981"
-            attach="material"
-            distort={0.3}
-            speed={2.5}
-            opacity={0.6}
             transparent
+            opacity={0.4}
+            emissive="#10b981"
+            emissiveIntensity={0.1}
           />
         </Sphere>
       </Float>
@@ -103,8 +98,9 @@ const HeroBackground3D = () => {
     <div className="absolute inset-0 w-full h-full">
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}
-        gl={{ alpha: true, antialias: true }}
         style={{ background: 'transparent' }}
+        dpr={[1, 2]}
+        performance={{ min: 0.5 }}
       >
         {/* Lighting */}
         <ambientLight intensity={0.4} />

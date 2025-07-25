@@ -62,7 +62,15 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Simplified Colors
+				// MindSuite Brand Colors
+				'electric-blue': 'hsl(var(--electric-blue))',
+				'electric-blue-glow': 'hsl(var(--electric-blue-glow))',
+				'neon-green': 'hsl(var(--neon-green))',
+				'neon-green-glow': 'hsl(var(--neon-green-glow))',
+				'soft-pink': 'hsl(var(--soft-pink))',
+				'soft-pink-glow': 'hsl(var(--soft-pink-glow))',
+				'violet': 'hsl(var(--violet))',
+				'violet-glow': 'hsl(var(--violet-glow))',
 				'glass': 'hsl(var(--glass))',
 				'glass-border': 'hsl(var(--glass-border))',
 				'surface-elevated': 'hsl(var(--surface-elevated))'

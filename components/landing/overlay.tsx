@@ -1,11 +1,11 @@
 import type React from "react"
-import { Button } from "@/components/ui/button"
-import { useCases, howItWorksSteps, aiFeatures } from "@/lib/data"
+import { Button } from "../ui/button"
+import { useCases, howItWorksSteps, aiFeatures } from "../../lib/data"
 import { ArrowRight } from "lucide-react"
 import { MindSuiteLogo } from "./logo"
 import { Footer } from "./footer"
-import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
+import { Badge } from "../ui/badge"
+import { cn } from "../../lib/utils"
 
 const Section = ({
   children,

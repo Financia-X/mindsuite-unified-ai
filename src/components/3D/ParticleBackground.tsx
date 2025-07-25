@@ -11,38 +11,63 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.PointsMaterial>(null);
   
-  // Generate particle positions in a sphere
+  // Generate particle positions in Earth shape
   const particles = useMemo(() => {
-    const positions = new Float32Array(1000 * 3);
-    const colors = new Float32Array(1000 * 3);
+    const positions = new Float32Array(2000 * 3);
+    const colors = new Float32Array(2000 * 3);
     
-    for (let i = 0; i < 1000; i++) {
-      // Distribute particles in a sphere
-      const radius = 8 + Math.random() * 12;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(Math.random() * 2 - 1);
+    for (let i = 0; i < 2000; i++) {
+      // Create Earth-like distribution with more density at the surface
+      const earthRadius = 10;
+      const surfaceDensity = Math.random() < 0.7; // 70% on surface, 30% in atmosphere
       
-      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = radius * Math.cos(phi);
-      
-      // Color variations (electric blue, violet, soft pink)
-      const colorChoice = Math.random();
-      if (colorChoice < 0.4) {
-        // Electric blue
-        colors[i * 3] = 0.1;
-        colors[i * 3 + 1] = 0.8;
-        colors[i * 3 + 2] = 1;
-      } else if (colorChoice < 0.7) {
-        // Violet
-        colors[i * 3] = 0.6;
-        colors[i * 3 + 1] = 0.3;
-        colors[i * 3 + 2] = 1;
+      if (surfaceDensity) {
+        // Surface particles - create landmass-like patterns
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        const radius = earthRadius + (Math.random() - 0.5) * 2; // Slight surface variation
+        
+        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = radius * Math.cos(phi);
       } else {
-        // Soft pink
-        colors[i * 3] = 1;
-        colors[i * 3 + 1] = 0.4;
-        colors[i * 3 + 2] = 0.8;
+        // Atmospheric particles - sparse outer layer
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        const radius = earthRadius + 2 + Math.random() * 8; // Atmosphere layer
+        
+        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = radius * Math.cos(phi);
+      }
+      
+      // Earth-like color variations
+      const y = positions[i * 3 + 1]; // Y position for latitude-based coloring
+      const colorChoice = Math.random();
+      
+      if (surfaceDensity) {
+        // Surface colors - blue (oceans), green (land), white (ice caps)
+        if (Math.abs(y) > earthRadius * 0.8) {
+          // Ice caps - white/light blue
+          colors[i * 3] = 0.9;
+          colors[i * 3 + 1] = 0.95;
+          colors[i * 3 + 2] = 1;
+        } else if (colorChoice < 0.6) {
+          // Oceans - deep blue
+          colors[i * 3] = 0.1;
+          colors[i * 3 + 1] = 0.3;
+          colors[i * 3 + 2] = 0.8;
+        } else {
+          // Land - green/brown
+          colors[i * 3] = 0.2;
+          colors[i * 3 + 1] = 0.6;
+          colors[i * 3 + 2] = 0.3;
+        }
+      } else {
+        // Atmospheric particles - lighter blues and whites
+        colors[i * 3] = 0.7;
+        colors[i * 3 + 1] = 0.9;
+        colors[i * 3 + 2] = 1;
       }
     }
     
@@ -115,8 +140,8 @@ const ConnectionLines = ({ scrollProgress }: { scrollProgress: number }) => {
     const positions = [];
     const colors = [];
     
-    // Create connecting lines between nearby particles
-    const numConnections = 200;
+    // Create connecting lines between nearby particles (fewer for Earth effect)
+    const numConnections = 150;
     for (let i = 0; i < numConnections; i++) {
       // Random start and end points
       const startRadius = 5 + Math.random() * 10;

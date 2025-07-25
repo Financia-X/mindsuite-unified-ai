@@ -2,75 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/placeholder-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MindSuite</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, sans-serif;
-        background: linear-gradient(135deg, #0f172a, #1e293b);
-        color: white;
-        min-height: 100vh;
-        padding: 2rem;
-      }
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-      p {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-        opacity: 0.8;
-      }
-      .hero {
-        text-align: center;
-        padding: 4rem 0;
-      }
-      .features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 4rem;
-      }
-      .feature {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 2rem;
-        border-radius: 1rem;
-        backdrop-filter: blur(10px);
-      }
-      .feature h3 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-    </style>
   </head>
   <body>
-    <div class="container">
-      <div class="hero">
-        <h1>MindSuite</h1>
-        <p>Your AI-Powered Productivity Suite</p>
-        <p>70+ AI tools designed for every role and industry. Experience the future of productivity with MindSuite's intelligent automation.</p>
-      </div>
-      
-      <div class="features">
-        <div class="feature">
-          <h3>🧠 AI-Powered Tools</h3>
-          <p>Advanced AI algorithms help you work smarter, not harder.</p>
-        </div>
-        <div class="feature">
-          <h3>🚀 Boost Productivity</h3>
-          <p>Streamline your workflow and get more done in less time.</p>
-        </div>
-        <div class="feature">
-          <h3>📊 Analytics & Insights</h3>
-          <p>Get deep insights into your work patterns and performance.</p>
-        </div>
-      </div>
-    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

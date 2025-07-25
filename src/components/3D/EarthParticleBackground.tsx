@@ -9,15 +9,16 @@ const EarthParticleField = ({ scrollProgress }: { scrollProgress: number }) => {
   const materialRef = useRef<THREE.PointsMaterial>(null);
   
   const particles = useMemo(() => {
-    const particleCount = 3000;
+    const particleCount = 4000;
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const originalPositions = new Float32Array(particleCount * 3);
     
+    // Earth-like distribution with continents and oceans
     for (let i = 0; i < particleCount; i++) {
-      const radius = 25 + Math.random() * 8;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
+      const radius = 25 + Math.random() * 3; // Tighter radius for earth shape
+      const theta = Math.random() * Math.PI * 2; // longitude
+      const phi = Math.acos(2 * Math.random() - 1); // latitude
       
       const x = radius * Math.sin(phi) * Math.cos(theta);
       const y = radius * Math.sin(phi) * Math.sin(theta);
@@ -31,27 +32,59 @@ const EarthParticleField = ({ scrollProgress }: { scrollProgress: number }) => {
       originalPositions[i * 3 + 1] = y;
       originalPositions[i * 3 + 2] = z;
       
-      const colorChoice = Math.random();
-      if (colorChoice < 0.4) {
-        // Ocean blue
-        colors[i * 3] = 0.1 + Math.random() * 0.2;
-        colors[i * 3 + 1] = 0.4 + Math.random() * 0.3;
-        colors[i * 3 + 2] = 0.8 + Math.random() * 0.2;
-      } else if (colorChoice < 0.7) {
-        // Land green/brown
-        colors[i * 3] = 0.2 + Math.random() * 0.4;
-        colors[i * 3 + 1] = 0.5 + Math.random() * 0.3;
-        colors[i * 3 + 2] = 0.1 + Math.random() * 0.3;
-      } else if (colorChoice < 0.85) {
-        // City lights
+      // Create earth-like color distribution
+      const latNorm = (phi / Math.PI); // 0 to 1 from north to south
+      const lonNorm = (theta / (Math.PI * 2)); // 0 to 1 from 0 to 360 degrees
+      
+      // Simulate continents and oceans
+      const isLand = (
+        // Africa and Europe
+        (lonNorm > 0.0 && lonNorm < 0.25 && latNorm > 0.2 && latNorm < 0.8) ||
+        // Asia
+        (lonNorm > 0.25 && lonNorm < 0.5 && latNorm > 0.1 && latNorm < 0.7) ||
+        // Americas
+        (lonNorm > 0.7 && lonNorm < 0.95 && latNorm > 0.15 && latNorm < 0.85) ||
+        // Australia/Oceania
+        (lonNorm > 0.5 && lonNorm < 0.7 && latNorm > 0.6 && latNorm < 0.8)
+      );
+      
+      const isPolarIce = latNorm < 0.1 || latNorm > 0.9;
+      const isDesert = (latNorm > 0.35 && latNorm < 0.65) && isLand && Math.random() > 0.6;
+      const isCityLights = isLand && Math.random() > 0.85;
+      const isClouds = Math.random() > 0.75;
+      
+      if (isClouds) {
+        // White clouds
+        colors[i * 3] = 0.9 + Math.random() * 0.1;
+        colors[i * 3 + 1] = 0.9 + Math.random() * 0.1;
+        colors[i * 3 + 2] = 0.95 + Math.random() * 0.05;
+      } else if (isPolarIce) {
+        // Ice caps - bright white/blue
+        colors[i * 3] = 0.8 + Math.random() * 0.2;
+        colors[i * 3 + 1] = 0.9 + Math.random() * 0.1;
+        colors[i * 3 + 2] = 0.95 + Math.random() * 0.05;
+      } else if (isCityLights) {
+        // City lights - warm yellow/orange
         colors[i * 3] = 1;
-        colors[i * 3 + 1] = 0.8;
-        colors[i * 3 + 2] = 0.3;
+        colors[i * 3 + 1] = 0.8 + Math.random() * 0.2;
+        colors[i * 3 + 2] = 0.3 + Math.random() * 0.3;
+      } else if (isLand) {
+        if (isDesert) {
+          // Desert - sandy colors
+          colors[i * 3] = 0.8 + Math.random() * 0.2;
+          colors[i * 3 + 1] = 0.6 + Math.random() * 0.3;
+          colors[i * 3 + 2] = 0.2 + Math.random() * 0.3;
+        } else {
+          // Land - green/brown
+          colors[i * 3] = 0.2 + Math.random() * 0.3;
+          colors[i * 3 + 1] = 0.4 + Math.random() * 0.4;
+          colors[i * 3 + 2] = 0.1 + Math.random() * 0.2;
+        }
       } else {
-        // Clouds
-        colors[i * 3] = 0.9;
-        colors[i * 3 + 1] = 0.9;
-        colors[i * 3 + 2] = 1;
+        // Ocean - deep blue
+        colors[i * 3] = 0.05 + Math.random() * 0.15;
+        colors[i * 3 + 1] = 0.2 + Math.random() * 0.3;
+        colors[i * 3 + 2] = 0.6 + Math.random() * 0.3;
       }
     }
     
@@ -63,12 +96,12 @@ const EarthParticleField = ({ scrollProgress }: { scrollProgress: number }) => {
     
     const time = state.clock.getElapsedTime();
     
-    // Earth rotation
-    pointsRef.current.rotation.y = time * 0.02;
-    pointsRef.current.rotation.x = Math.sin(time * 0.01) * 0.05;
+    // Slow earth rotation
+    pointsRef.current.rotation.y = time * 0.008; // Slower rotation
+    pointsRef.current.rotation.x = Math.sin(time * 0.005) * 0.02; // Gentle tilt
     
-    // Scroll-based expansion
-    const expansionForce = scrollProgress * 25;
+    // Enhanced scroll-based expansion
+    const expansionForce = Math.pow(scrollProgress, 1.5) * 40; // More dramatic expansion
     const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
     const originalPositions = particles.originalPositions;
     
@@ -82,22 +115,26 @@ const EarthParticleField = ({ scrollProgress }: { scrollProgress: number }) => {
       const dirY = originalY / length;
       const dirZ = originalZ / length;
       
+      // Apply expansion force
       positions[i] = originalX + dirX * expansionForce;
       positions[i + 1] = originalY + dirY * expansionForce;
       positions[i + 2] = originalZ + dirZ * expansionForce;
       
-      // Subtle floating movement
-      positions[i] += Math.sin(time * 0.3 + i * 0.01) * 0.2;
-      positions[i + 1] += Math.cos(time * 0.2 + i * 0.01) * 0.15;
-      positions[i + 2] += Math.sin(time * 0.25 + i * 0.01) * 0.18;
+      // Add floating movement only when expanded
+      if (scrollProgress > 0.1) {
+        const floatIntensity = scrollProgress * 0.5;
+        positions[i] += Math.sin(time * 0.2 + i * 0.01) * floatIntensity;
+        positions[i + 1] += Math.cos(time * 0.15 + i * 0.01) * floatIntensity;
+        positions[i + 2] += Math.sin(time * 0.18 + i * 0.01) * floatIntensity;
+      }
     }
     
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
     
     // Material adjustments based on scroll
     if (materialRef.current) {
-      materialRef.current.size = 0.8 + scrollProgress * 2;
-      materialRef.current.opacity = Math.max(0.1, 0.7 - scrollProgress * 0.2);
+      materialRef.current.size = 1.2 + scrollProgress * 1.5; // Larger particles when expanded
+      materialRef.current.opacity = Math.max(0.3, 0.9 - scrollProgress * 0.3);
     }
   });
 
@@ -107,7 +144,7 @@ const EarthParticleField = ({ scrollProgress }: { scrollProgress: number }) => {
         ref={materialRef}
         transparent
         vertexColors
-        size={0.8}
+        size={1.2}
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
@@ -150,15 +187,16 @@ const OrbitalRings = ({ scrollProgress }: { scrollProgress: number }) => {
     
     ringRefs.current.forEach((ring, index) => {
       if (ring) {
-        ring.rotation.y = time * (0.05 + index * 0.02);
-        ring.rotation.x = Math.sin(time * 0.02 + index) * 0.1;
+        ring.rotation.y = time * (0.02 + index * 0.01); // Slower rotation
+        ring.rotation.x = Math.sin(time * 0.01 + index) * 0.05;
         
-        const scale = 1 + scrollProgress * 4;
+        // More dramatic scaling with scroll
+        const scale = 1 + Math.pow(scrollProgress, 1.2) * 6;
         ring.scale.setScalar(scale);
         
         if (ring.material) {
           (ring.material as THREE.LineBasicMaterial).opacity = 
-            Math.max(0.02, 0.15 - scrollProgress * 0.1);
+            Math.max(0.01, 0.2 - scrollProgress * 0.15);
         }
       }
     });
@@ -176,8 +214,8 @@ const OrbitalRings = ({ scrollProgress }: { scrollProgress: number }) => {
         >
           <lineBasicMaterial
             transparent
-            color={new THREE.Color(0.3 + index * 0.1, 0.6, 1)}
-            opacity={0.15}
+            color={new THREE.Color(0.2 + index * 0.1, 0.4 + index * 0.1, 0.8)}
+            opacity={0.2}
           />
         </lineLoop>
       ))}
@@ -192,23 +230,25 @@ const EarthParticleBackground = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollTop / docHeight;
-      setScrollProgress(Math.min(progress, 1));
+      const heroHeight = window.innerHeight; // Use viewport height for hero section
+      const progress = Math.min(scrollTop / (heroHeight * 0.8), 1); // Start expanding at 80% of hero
+      setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 0, 80], fov: 75 }}
+        camera={{ position: [0, 0, 60], fov: 60 }}
         style={{ background: 'transparent' }}
       >
-        <ambientLight intensity={0.3} />
-        <pointLight position={[100, 100, 100]} intensity={0.8} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[100, 100, 100]} intensity={1.2} />
+        <pointLight position={[-100, -100, -100]} intensity={0.6} color="#4a90e2" />
         
         <EarthParticleField scrollProgress={scrollProgress} />
         <OrbitalRings scrollProgress={scrollProgress} />

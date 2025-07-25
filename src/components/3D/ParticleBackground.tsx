@@ -11,67 +11,41 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.PointsMaterial>(null);
   
-  // Generate particle positions in Earth shape
+  // Generate subtle floating particles
   const particles = useMemo(() => {
-    const positions = new Float32Array(1000 * 3);
-    const colors = new Float32Array(1000 * 3);
+    const positions = new Float32Array(800 * 3);
+    const colors = new Float32Array(800 * 3);
+    const scales = new Float32Array(800);
     
-    for (let i = 0; i < 1000; i++) {
-      // Create Earth-like distribution with more density at the surface
-      const earthRadius = 10;
-      const surfaceDensity = Math.random() < 0.7; // 70% on surface, 30% in atmosphere
+    for (let i = 0; i < 800; i++) {
+      // Distribute particles in a wider area for subtle effect
+      const radius = 15 + Math.random() * 25;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
       
-      if (surfaceDensity) {
-        // Surface particles - create landmass-like patterns
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(Math.random() * 2 - 1);
-        const radius = earthRadius + (Math.random() - 0.5) * 2; // Slight surface variation
-        
-        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        positions[i * 3 + 2] = radius * Math.cos(phi);
-      } else {
-        // Atmospheric particles - sparse outer layer
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(Math.random() * 2 - 1);
-        const radius = earthRadius + 2 + Math.random() * 8; // Atmosphere layer
-        
-        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        positions[i * 3 + 2] = radius * Math.cos(phi);
-      }
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) + (Math.random() - 0.5) * 10;
+      positions[i * 3 + 2] = radius * Math.cos(phi);
       
-      // Earth-like color variations
-      const y = positions[i * 3 + 1]; // Y position for latitude-based coloring
+      // Soft white and blue glowing particles
       const colorChoice = Math.random();
-      
-      if (surfaceDensity) {
-        // Surface colors - blue (oceans), green (land), white (ice caps)
-        if (Math.abs(y) > earthRadius * 0.8) {
-          // Ice caps - white/light blue
-          colors[i * 3] = 0.9;
-          colors[i * 3 + 1] = 0.95;
-          colors[i * 3 + 2] = 1;
-        } else if (colorChoice < 0.6) {
-          // Oceans - deep blue
-          colors[i * 3] = 0.1;
-          colors[i * 3 + 1] = 0.3;
-          colors[i * 3 + 2] = 0.8;
-        } else {
-          // Land - green/brown
-          colors[i * 3] = 0.2;
-          colors[i * 3 + 1] = 0.6;
-          colors[i * 3 + 2] = 0.3;
-        }
+      if (colorChoice < 0.7) {
+        // Soft white particles
+        colors[i * 3] = 0.9 + Math.random() * 0.1;
+        colors[i * 3 + 1] = 0.9 + Math.random() * 0.1;
+        colors[i * 3 + 2] = 1;
       } else {
-        // Atmospheric particles - lighter blues and whites
-        colors[i * 3] = 0.7;
-        colors[i * 3 + 1] = 0.9;
+        // Soft blue particles
+        colors[i * 3] = 0.4 + Math.random() * 0.2;
+        colors[i * 3 + 1] = 0.7 + Math.random() * 0.2;
         colors[i * 3 + 2] = 1;
       }
+      
+      // Random scale for particle variation
+      scales[i] = 0.5 + Math.random() * 1.5;
     }
     
-    return { positions, colors };
+    return { positions, colors, scales };
   }, []);
 
   useFrame((state) => {
@@ -79,12 +53,12 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
     
     const time = state.clock.getElapsedTime();
     
-    // Rotate the entire particle system
-    pointsRef.current.rotation.y = time * 0.1;
-    pointsRef.current.rotation.x = Math.sin(time * 0.05) * 0.2;
+    // Gentle floating movement for AI-tech vibe
+    pointsRef.current.rotation.y = time * 0.05;
+    pointsRef.current.rotation.x = Math.sin(time * 0.03) * 0.1;
     
-    // Apply scroll-based explosion effect
-    const explosionForce = scrollProgress * 3;
+    // Scroll-based particle expansion and camera movement
+    const expansionForce = scrollProgress * 2;
     const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
     const originalPositions = particles.positions;
     
@@ -93,28 +67,29 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
       const originalY = originalPositions[i + 1];
       const originalZ = originalPositions[i + 2];
       
-      // Calculate explosion direction from center
+      // Calculate expansion direction from center
       const length = Math.sqrt(originalX * originalX + originalY * originalY + originalZ * originalZ);
       const dirX = originalX / length;
       const dirY = originalY / length;
       const dirZ = originalZ / length;
       
-      // Apply explosion effect
-      positions[i] = originalX + dirX * explosionForce * 5;
-      positions[i + 1] = originalY + dirY * explosionForce * 5;
-      positions[i + 2] = originalZ + dirZ * explosionForce * 5;
+      // Apply smooth expansion effect on scroll
+      positions[i] = originalX + dirX * expansionForce * 8;
+      positions[i + 1] = originalY + dirY * expansionForce * 8 + Math.sin(time + i * 0.01) * 0.5;
+      positions[i + 2] = originalZ + dirZ * expansionForce * 8;
       
-      // Add some randomness to the explosion
-      positions[i] += Math.sin(time + i) * explosionForce * 0.5;
-      positions[i + 1] += Math.cos(time + i) * explosionForce * 0.5;
+      // Add gentle floating motion
+      positions[i] += Math.sin(time * 0.5 + i * 0.1) * 0.3;
+      positions[i + 1] += Math.cos(time * 0.3 + i * 0.1) * 0.2;
+      positions[i + 2] += Math.sin(time * 0.4 + i * 0.1) * 0.25;
     }
     
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
     
-    // Adjust particle size and opacity based on scroll
+    // Adjust particle properties based on scroll
     if (materialRef.current) {
-      materialRef.current.size = 2 + scrollProgress * 3;
-      materialRef.current.opacity = Math.max(0.3, 1 - scrollProgress * 0.7);
+      materialRef.current.size = 1.5 + scrollProgress * 2;
+      materialRef.current.opacity = Math.max(0.2, 0.8 - scrollProgress * 0.4);
     }
   });
 
@@ -124,7 +99,7 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
         ref={materialRef}
         transparent
         vertexColors
-        size={2}
+        size={1.5}
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
@@ -133,6 +108,7 @@ const ParticleField = ({ scrollProgress }: ParticleFieldProps) => {
   );
 };
 
+// Subtle connection lines component
 const ConnectionLines = ({ scrollProgress }: { scrollProgress: number }) => {
   const linesRef = useRef<THREE.LineSegments>(null);
   
@@ -140,12 +116,12 @@ const ConnectionLines = ({ scrollProgress }: { scrollProgress: number }) => {
     const positions = [];
     const colors = [];
     
-    // Create connecting lines between nearby particles (fewer for Earth effect)
-    const numConnections = 150;
+    // Fewer, more subtle connection lines
+    const numConnections = 80;
     for (let i = 0; i < numConnections; i++) {
-      // Random start and end points
-      const startRadius = 5 + Math.random() * 10;
-      const endRadius = 5 + Math.random() * 10;
+      // Random start and end points with wider distribution
+      const startRadius = 15 + Math.random() * 20;
+      const endRadius = 15 + Math.random() * 20;
       
       const theta1 = Math.random() * Math.PI * 2;
       const phi1 = Math.acos(Math.random() * 2 - 1);
@@ -166,8 +142,9 @@ const ConnectionLines = ({ scrollProgress }: { scrollProgress: number }) => {
         endRadius * Math.cos(phi2)
       );
       
-      // Colors for the line (electric blue with transparency)
-      colors.push(0.1, 0.8, 1, 0.1, 0.8, 1);
+      // Soft blue/white colors for subtle lines
+      const colorIntensity = 0.3 + Math.random() * 0.3;
+      colors.push(colorIntensity, colorIntensity, 1, colorIntensity, colorIntensity, 1);
     }
     
     const geometry = new THREE.BufferGeometry();
@@ -182,13 +159,13 @@ const ConnectionLines = ({ scrollProgress }: { scrollProgress: number }) => {
     
     const time = state.clock.getElapsedTime();
     
-    // Rotate lines with particles
-    linesRef.current.rotation.y = time * 0.1;
-    linesRef.current.rotation.x = Math.sin(time * 0.05) * 0.2;
+    // Gentle rotation synchronized with particles
+    linesRef.current.rotation.y = time * 0.05;
+    linesRef.current.rotation.x = Math.sin(time * 0.03) * 0.1;
     
-    // Fade lines as scroll increases
+    // Fade lines as scroll increases for non-obtrusive effect
     if (linesRef.current.material) {
-      (linesRef.current.material as THREE.LineBasicMaterial).opacity = Math.max(0.1, 0.3 - scrollProgress * 0.2);
+      (linesRef.current.material as THREE.LineBasicMaterial).opacity = Math.max(0.05, 0.15 - scrollProgress * 0.1);
     }
   });
 
@@ -197,7 +174,7 @@ const ConnectionLines = ({ scrollProgress }: { scrollProgress: number }) => {
       <lineBasicMaterial
         transparent
         vertexColors
-        opacity={0.3}
+        opacity={0.15}
         blending={THREE.AdditiveBlending}
       />
     </lineSegments>
@@ -212,7 +189,7 @@ const ParticleBackground = ({ scrollProgress }: ParticleBackgroundProps) => {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 25], fov: 75 }}
+        camera={{ position: [0, 0, 30], fov: 60 }}
         style={{ background: 'transparent' }}
       >
         <ParticleField scrollProgress={scrollProgress} />

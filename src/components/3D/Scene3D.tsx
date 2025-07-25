@@ -14,10 +14,12 @@ const BrainParticles = () => {
   // useScroll hook gives us the current scroll progress
   const scroll = useScroll()
 
-  // Generate random positions for the particles in a sphere
-  const positions = useMemo(() => {
+  // Generate random positions for the particles in a sphere and create geometry
+  const geometry = useMemo(() => {
+    const geometry = new THREE.BufferGeometry()
     const positions = new Float32Array(count * 3)
     const distance = 2
+    
     for (let i = 0; i < count; i++) {
       const theta = THREE.MathUtils.randFloatSpread(360)
       const phi = THREE.MathUtils.randFloatSpread(360)
@@ -25,7 +27,9 @@ const BrainParticles = () => {
       positions[i * 3 + 1] = distance * Math.sin(theta) * Math.sin(phi)
       positions[i * 3 + 2] = distance * Math.cos(theta)
     }
-    return positions
+    
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    return geometry
   }, [count])
 
   // useFrame is a hook that runs on every single frame
@@ -44,10 +48,7 @@ const BrainParticles = () => {
   })
 
   return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
+    <points ref={ref} geometry={geometry}>
       <pointsMaterial size={0.015} color="#6366f1" />
     </points>
   )

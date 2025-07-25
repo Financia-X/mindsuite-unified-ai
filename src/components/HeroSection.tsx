@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import workspaceMockup from "@/assets/3d-workspace.jpg";
 import dashboardMockup from "@/assets/3d-dashboard.jpg";
 import mobileMockup from "@/assets/3d-mobile.jpg";
+import HeroBackground3D from "./3D/HeroBackground3D";
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -36,13 +37,19 @@ const HeroSection = () => {
   };
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 hero-background">
+    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90">
+      {/* 3D Background */}
+      <HeroBackground3D />
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-electric-blue/10 via-violet/5 to-soft-pink/10 opacity-60" />
+      
+      {/* Additional background effects */}
+      <div className="absolute inset-0">
         {/* Animated gradient waves */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-[150%] h-[150%] -top-1/4 -left-1/4 bg-gradient-radial from-primary/5 via-transparent to-transparent animate-pulse-slow opacity-60" />
-          <div className="absolute w-[200%] h-[200%] -top-1/2 -left-1/2 bg-gradient-radial from-primary/3 via-transparent to-transparent animate-spin-very-slow" />
+          <div className="absolute w-[150%] h-[150%] -top-1/4 -left-1/4 bg-gradient-radial from-electric-blue/5 via-transparent to-transparent animate-pulse-slow opacity-60" />
+          <div className="absolute w-[200%] h-[200%] -top-1/2 -left-1/2 bg-gradient-radial from-violet/3 via-transparent to-transparent animate-spin-very-slow" />
         </div>
         
         {/* Floating orbs */}
@@ -57,7 +64,7 @@ const HeroSection = () => {
               animationDuration: `${6 + (i * 2)}s`
             }}
           >
-            <div className="w-2 h-2 bg-primary rounded-full blur-sm" />
+            <div className="w-2 h-2 bg-electric-blue rounded-full blur-sm" />
           </div>
         ))}
         
@@ -67,8 +74,8 @@ const HeroSection = () => {
             className="w-full h-full"
             style={{
               backgroundImage: `
-                linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
-                linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
+                linear-gradient(hsl(var(--electric-blue)) 1px, transparent 1px),
+                linear-gradient(90deg, hsl(var(--electric-blue)) 1px, transparent 1px)
               `,
               backgroundSize: '60px 60px'
             }}
@@ -88,7 +95,7 @@ const HeroSection = () => {
           <div className="hero-text space-y-6 max-w-6xl mx-auto">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight">
               <span className="block text-foreground">One Suite.</span>
-              <span className="block bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-electric-blue via-violet to-soft-pink bg-clip-text text-transparent">
                 Every Tool You Need.
               </span>
             </h1>
@@ -102,7 +109,7 @@ const HeroSection = () => {
           <div className="hero-text flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 hover:scale-105 transition-all duration-300 text-lg px-8 py-6 shadow-2xl hover:shadow-primary/50"
+              className="electric-gradient hover:scale-105 transition-all duration-300 text-lg px-8 py-6 shadow-2xl hover:shadow-electric-blue/50"
             >
               <Zap className="mr-2 h-5 w-5" />
               Join the Waitlist
@@ -154,16 +161,16 @@ const HeroSection = () => {
 
           {/* Glow effects */}
           <div className="absolute inset-0 -z-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/15 rounded-full blur-3xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-electric-blue/20 rounded-full blur-3xl opacity-30 animate-pulse" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-violet/20 rounded-full blur-3xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
+        <div className="w-6 h-10 border-2 border-electric-blue/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-electric-blue rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

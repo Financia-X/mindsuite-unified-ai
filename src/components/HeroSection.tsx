@@ -37,35 +37,40 @@ const HeroSection = () => {
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background Elements */}
-      <div className="absolute inset-0">
-        {/* Floating geometric shapes */}
-        {[...Array(8)].map((_, i) => (
+      {/* Animated background */}
+      <div className="absolute inset-0 hero-background">
+        {/* Animated gradient waves */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-[150%] h-[150%] -top-1/4 -left-1/4 bg-gradient-radial from-primary/5 via-transparent to-transparent animate-pulse-slow opacity-60" />
+          <div className="absolute w-[200%] h-[200%] -top-1/2 -left-1/2 bg-gradient-radial from-primary/3 via-transparent to-transparent animate-spin-very-slow" />
+        </div>
+        
+        {/* Floating orbs */}
+        {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="absolute opacity-20"
+            className="absolute animate-float-slow opacity-20"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              transform: `scale(${0.5 + Math.random() * 0.5})`,
-              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 4}s`
+              left: `${15 + (i * 15)}%`,
+              top: `${20 + (i * 10)}%`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${6 + (i * 2)}s`
             }}
           >
-            <div className="w-16 h-16 bg-gradient-to-br from-electric-blue/30 to-violet/30 rounded-xl backdrop-blur-sm border border-white/10 transform rotate-45" />
+            <div className="w-2 h-2 bg-primary rounded-full blur-sm" />
           </div>
         ))}
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5">
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 opacity-[0.02]">
           <div 
             className="w-full h-full"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+                linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
+                linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
               `,
-              backgroundSize: '50px 50px'
+              backgroundSize: '60px 60px'
             }}
           />
         </div>
@@ -82,9 +87,9 @@ const HeroSection = () => {
           {/* Main Headline */}
           <div className="hero-text space-y-6 max-w-6xl mx-auto">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight">
-              <span className="block text-foreground">One AI Workspace.</span>
-              <span className="block bg-gradient-to-r from-violet via-electric-blue to-neon-green bg-clip-text text-transparent">
-                Infinite Productivity.
+              <span className="block text-foreground">One Suite.</span>
+              <span className="block bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                Every Tool You Need.
               </span>
             </h1>
             
@@ -97,10 +102,10 @@ const HeroSection = () => {
           <div className="hero-text flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               size="lg" 
-              className="electric-gradient hover:scale-105 transition-all duration-300 text-lg px-8 py-6 shadow-2xl hover:shadow-electric/50"
+              className="bg-primary hover:bg-primary/90 hover:scale-105 transition-all duration-300 text-lg px-8 py-6 shadow-2xl hover:shadow-primary/50"
             >
               <Zap className="mr-2 h-5 w-5" />
-              Get Early Access
+              Join the Waitlist
             </Button>
             
             <Button 
@@ -149,16 +154,16 @@ const HeroSection = () => {
 
           {/* Glow effects */}
           <div className="absolute inset-0 -z-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-electric-blue/20 rounded-full blur-3xl opacity-30 animate-pulse" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-violet/20 rounded-full blur-3xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/15 rounded-full blur-3xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-electric-blue/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-electric-blue rounded-full mt-2 animate-pulse"></div>
+        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

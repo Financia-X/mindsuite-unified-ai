@@ -62,15 +62,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// MindSuite Brand Colors
-				'electric-blue': 'hsl(var(--electric-blue))',
-				'electric-blue-glow': 'hsl(var(--electric-blue-glow))',
-				'neon-green': 'hsl(var(--neon-green))',
-				'neon-green-glow': 'hsl(var(--neon-green-glow))',
-				'soft-pink': 'hsl(var(--soft-pink))',
-				'soft-pink-glow': 'hsl(var(--soft-pink-glow))',
-				'violet': 'hsl(var(--violet))',
-				'violet-glow': 'hsl(var(--violet-glow))',
+				// Simplified Colors
 				'glass': 'hsl(var(--glass))',
 				'glass-border': 'hsl(var(--glass-border))',
 				'surface-elevated': 'hsl(var(--surface-elevated))'
@@ -114,6 +106,14 @@ export default {
 				'parallax-fast': {
 					'0%, 100%': { transform: 'translateY(0px)' },
 					'50%': { transform: 'translateY(-30px)' }
+				},
+				'float-slow': {
+					'0%, 100%': { transform: 'translateY(0px) scale(1)' },
+					'50%': { transform: 'translateY(-10px) scale(1.1)' }
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '0.6' },
+					'50%': { opacity: '1' }
 				}
 			},
 			animation: {
@@ -121,7 +121,10 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'parallax-slow': 'parallax-slow 8s ease-in-out infinite',
-				'parallax-fast': 'parallax-fast 4s ease-in-out infinite'
+				'parallax-fast': 'parallax-fast 4s ease-in-out infinite',
+				'float-slow': 'float-slow 8s ease-in-out infinite',
+				'pulse-slow': 'pulse-slow 4s ease-in-out infinite',
+				'spin-very-slow': 'spin 60s linear infinite'
 			}
 		}
 	},

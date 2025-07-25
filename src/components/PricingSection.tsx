@@ -256,10 +256,10 @@ const PricingSection = () => {
             All plans include a 14-day free trial. No credit card required.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="electric-gradient hover:scale-105 transition-transform duration-300">
-              Start Your Free Trial
+            <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 transition-transform duration-300">
+              Join the Waitlist
             </Button>
-            <Button size="lg" variant="outline" className="glass border-electric-blue/30 hover:border-electric-blue/50 hover:bg-electric-blue/10">
+            <Button size="lg" variant="outline" className="border-primary/30 hover:border-primary/50 hover:bg-primary/10">
               Compare All Features
             </Button>
           </div>

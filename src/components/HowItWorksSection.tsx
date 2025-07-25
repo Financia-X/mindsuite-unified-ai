@@ -102,11 +102,8 @@ const HowItWorksSection = () => {
               Join thousands of professionals who've already supercharged their productivity with MindSuite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="electric-gradient px-8 py-3 rounded-lg text-white font-medium hover:scale-105 transition-transform duration-300">
-                Start Your Free Trial
-              </button>
-              <button className="glass border-electric-blue/30 hover:border-electric-blue/50 px-8 py-3 rounded-lg text-electric-blue font-medium hover:bg-electric-blue/10 transition-all duration-300">
-                Schedule a Demo
+              <button className="bg-primary hover:bg-primary/90 px-8 py-3 rounded-lg text-primary-foreground font-medium hover:scale-105 transition-transform duration-300">
+                Join the Waitlist
               </button>
             </div>
           </div>

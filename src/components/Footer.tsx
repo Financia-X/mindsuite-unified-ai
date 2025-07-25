@@ -92,27 +92,8 @@ const Footer = () => {
             </div>
             
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              The unified workspace of the future. 70+ AI-powered tools designed to help 
-              professionals across every industry work faster, smarter, and more creatively.
+              One workspace. Every tool. Built for the future of work.
             </p>
-
-            {/* Newsletter Signup */}
-            <div className="space-y-4">
-              <h4 className="font-semibold text-foreground">Stay Updated</h4>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 glass border border-glass-border/30 rounded-lg bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-electric-blue/50"
-                />
-                <Button className="electric-gradient hover:scale-105 transition-transform duration-300">
-                  Subscribe
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Get product updates, AI insights, and productivity tips.
-              </p>
-            </div>
           </div>
 
           {/* Links Grid */}
@@ -178,29 +159,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-12 pt-8 border-t border-glass-border/30">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="flex flex-wrap items-center gap-6 text-xs text-muted-foreground">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse" />
-                <span>All systems operational</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Globe className="w-3 h-3" />
-                <span>150+ countries served</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Zap className="w-3 h-3" />
-                <span>99.9% uptime SLA</span>
-              </div>
-            </div>
-            
-            <div className="text-xs text-muted-foreground">
-              Made with 🧠 by the MindSuite team
-            </div>
-          </div>
-        </div>
       </div>
     </footer>
   );

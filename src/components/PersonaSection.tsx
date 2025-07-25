@@ -108,14 +108,11 @@ const PersonaSection = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <Badge variant="outline" className="mb-4 border-electric-blue/30 text-electric-blue">
-            Built for Everyone
+          <Badge variant="outline" className="mb-4 border-primary/30 text-primary">
+            Choose Your Suite
           </Badge>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Built for Everyone —{" "}
-            <span className="bg-gradient-to-r from-electric-blue via-violet to-soft-pink bg-clip-text text-transparent">
-              Tailored for You
-            </span>
+            One Suite. Every Tool You Need.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground">
             From solo founders and students to Fortune 500 executives — MindSuite boosts productivity at every level.
@@ -129,7 +126,7 @@ const PersonaSection = () => {
             return (
               <Card 
                 key={index} 
-                className="glass hover-lift cursor-pointer group border-glass-border/20 hover:border-electric-blue/30 transition-all duration-300"
+                className="bg-card/50 hover:bg-card/80 hover-lift cursor-pointer group border border-border/20 hover:border-primary/30 transition-all duration-300 backdrop-blur-sm"
               >
                 <CardContent className="p-6">
                   {/* Icon with Gradient */}

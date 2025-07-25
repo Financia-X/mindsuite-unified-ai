@@ -20,7 +20,7 @@ export function PricingSection() {
             <Card
               key={plan.title}
               className={`flex flex-col border-border/50 bg-card transition-all ${
-                plan.highlighted ? "border-primary/80 ring-2 ring-primary/50" : ""
+                plan.mostPopular ? "border-primary/80 ring-2 ring-primary/50" : ""
               }`}
             >
               <CardHeader>
@@ -33,22 +33,22 @@ export function PricingSection() {
               </CardHeader>
               <CardContent className="flex-1">
                 <ul className="space-y-3">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <Check className="h-4 w-4 flex-shrink-0 text-primary mt-1" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
+                   {plan.features.map((feature, index) => (
+                     <li key={index} className={`flex items-start gap-2 text-sm ${feature.included ? 'text-muted-foreground' : 'text-muted-foreground/50 line-through'}`}>
+                       <Check className={`h-4 w-4 flex-shrink-0 mt-1 ${feature.included ? 'text-primary' : 'text-muted-foreground/30'}`} />
+                       <span>{feature.text}</span>
+                     </li>
+                   ))}
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button
-                  className={`w-full ${
-                    plan.highlighted
-                      ? "bg-primary text-primary-foreground shadow hover:bg-primary/90"
-                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                  }`}
-                >
+                 <Button
+                   className={`w-full ${
+                     plan.mostPopular
+                       ? "bg-primary text-primary-foreground shadow hover:bg-primary/90"
+                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                   }`}
+                 >
                   {plan.cta}
                 </Button>
               </CardFooter>

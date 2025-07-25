@@ -16,14 +16,14 @@ export function UseCasesSection() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {useCases.map((useCase) => (
             <Card
-              key={useCase.title}
+              key={useCase.audience}
               className="group border-border/50 bg-card transition-all duration-300 hover:border-primary/50 hover:bg-secondary/50 hover:shadow-2xl hover:shadow-primary/10"
             >
               <CardHeader>
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <useCase.icon className="h-6 w-6" />
                 </div>
-                <CardTitle className="text-xl font-semibold text-foreground">{useCase.title}</CardTitle>
+                <CardTitle className="text-xl font-semibold text-foreground">{useCase.audience}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">{useCase.description}</p>

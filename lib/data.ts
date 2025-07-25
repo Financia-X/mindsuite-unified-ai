@@ -43,6 +43,9 @@ import {
   Info,
 } from "lucide-react"
 
+export { testimonials } from './testimonials'
+export { toolCategories } from './tool-categories'
+
 export const useCases = [
   {
     audience: "CXOs & Executives",

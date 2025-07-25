@@ -37,48 +37,64 @@ const HeroSection = () => {
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90">
-      {/* Fallback 3D Background */}
-      <div className="absolute inset-0 hero-3d-fallback" />
+      {/* Futuristic Particle Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-black/50 to-black/80" />
       
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-electric-blue/10 via-violet/5 to-soft-pink/10 opacity-60" />
-      
-      {/* Additional background effects */}
-      <div className="absolute inset-0">
-        {/* Animated gradient waves */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-[150%] h-[150%] -top-1/4 -left-1/4 bg-gradient-radial from-electric-blue/5 via-transparent to-transparent animate-pulse-slow opacity-60" />
-          <div className="absolute w-[200%] h-[200%] -top-1/2 -left-1/2 bg-gradient-radial from-violet/3 via-transparent to-transparent animate-spin-very-slow" />
-        </div>
-        
-        {/* Floating orbs */}
-        {[...Array(6)].map((_, i) => (
+      {/* Particle System */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Large glowing particles */}
+        {[...Array(12)].map((_, i) => (
           <div
-            key={i}
-            className="absolute animate-float-slow opacity-20"
+            key={`large-${i}`}
+            className="absolute particle-large"
             style={{
-              left: `${15 + (i * 15)}%`,
-              top: `${20 + (i * 10)}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${6 + (i * 2)}s`
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.8}s`,
+              animationDuration: `${8 + Math.random() * 4}s`
             }}
           >
-            <div className="w-2 h-2 bg-electric-blue rounded-full blur-sm" />
+            <div className="w-3 h-3 bg-electric-blue/60 rounded-full blur-sm animate-pulse" />
           </div>
         ))}
         
-        {/* Subtle grid overlay */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div 
-            className="w-full h-full"
+        {/* Medium particles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={`medium-${i}`}
+            className="absolute particle-medium"
             style={{
-              backgroundImage: `
-                linear-gradient(hsl(var(--electric-blue)) 1px, transparent 1px),
-                linear-gradient(90deg, hsl(var(--electric-blue)) 1px, transparent 1px)
-              `,
-              backgroundSize: '60px 60px'
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.3}s`,
+              animationDuration: `${6 + Math.random() * 3}s`
             }}
-          />
+          >
+            <div className="w-2 h-2 bg-violet/70 rounded-full blur-[1px]" />
+          </div>
+        ))}
+        
+        {/* Small scattered particles */}
+        {[...Array(40)].map((_, i) => (
+          <div
+            key={`small-${i}`}
+            className="absolute particle-small"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.1}s`,
+              animationDuration: `${4 + Math.random() * 2}s`
+            }}
+          >
+            <div className="w-1 h-1 bg-soft-pink/50 rounded-full" />
+          </div>
+        ))}
+        
+        {/* Glowing depth layers */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-electric-blue/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet/8 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-soft-pink/6 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '8s', animationDelay: '1s' }} />
         </div>
       </div>
 

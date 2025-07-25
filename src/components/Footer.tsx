@@ -68,7 +68,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="relative py-24 mt-24 overflow-hidden">
+    <footer className="relative py-16 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-electric-blue/50 to-transparent" />

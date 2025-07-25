@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import workspaceMockup from "@/assets/3d-workspace.jpg";
 import dashboardMockup from "@/assets/3d-dashboard.jpg";
 import mobileMockup from "@/assets/3d-mobile.jpg";
-import HeroBackground3D from "./3D/HeroBackground3D";
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -38,8 +37,8 @@ const HeroSection = () => {
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90">
-      {/* 3D Background */}
-      <HeroBackground3D />
+      {/* Fallback 3D Background */}
+      <div className="absolute inset-0 hero-3d-fallback" />
       
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-electric-blue/10 via-violet/5 to-soft-pink/10 opacity-60" />

@@ -1,136 +1,156 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
-import heroCube from "@/assets/hero-cube.jpg";
+import { ArrowRight, Zap } from "lucide-react";
+import { useEffect, useRef } from "react";
+import workspaceMockup from "@/assets/3d-workspace.jpg";
+import dashboardMockup from "@/assets/3d-dashboard.jpg";
+import mobileMockup from "@/assets/3d-mobile.jpg";
 
 const HeroSection = () => {
-  const scrollToDemo = () => {
-    document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
+  const heroRef = useRef<HTMLElement>(null);
+  const mockupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!heroRef.current || !mockupRef.current) return;
+      
+      const scrollY = window.scrollY;
+      const heroHeight = heroRef.current.offsetHeight;
+      const progress = Math.min(scrollY / heroHeight, 1);
+      
+      // Parallax effect for mockups
+      mockupRef.current.style.transform = `translateY(${progress * 50}px) rotateX(${progress * 10}deg)`;
+      
+      // Fade effect for text
+      const textElements = heroRef.current.querySelectorAll('.hero-text');
+      textElements.forEach((el) => {
+        (el as HTMLElement).style.opacity = `${1 - progress * 0.5}`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTools = () => {
+    document.getElementById('tools-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 hero-gradient opacity-10" />
-      
-      {/* Floating Particles */}
+    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* 3D Background Elements */}
       <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
+        {/* Floating geometric shapes */}
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-electric-blue rounded-full opacity-30 animate-float"
+            className="absolute opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 6}s`,
-              animationDuration: `${6 + Math.random() * 4}s`
+              transform: `scale(${0.5 + Math.random() * 0.5})`,
+              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 4}s`
+            }}
+          >
+            <div className="w-16 h-16 bg-gradient-to-br from-electric-blue/30 to-violet/30 rounded-xl backdrop-blur-sm border border-white/10 transform rotate-45" />
+          </div>
+        ))}
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5">
+          <div 
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px'
             }}
           />
-        ))}
+        </div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div className="text-center lg:text-left space-y-8">
-            {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 glass rounded-full border border-electric-blue/20">
-              <span className="text-sm font-medium text-electric-blue">🧠 Where AI Meets Productivity</span>
-            </div>
+        <div className="text-center space-y-12">
+          {/* Command hint */}
+          <div className="hero-text inline-flex items-center px-4 py-2 glass rounded-full border border-electric-blue/20 text-sm">
+            <span className="text-electric-blue mr-2">⌘</span>
+            <span className="text-muted-foreground">Cmd + K to start</span>
+          </div>
 
-            {/* Main Headline */}
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                <span className="block bg-gradient-to-r from-electric-blue via-violet to-soft-pink bg-clip-text text-transparent">
-                  70+ AI Tools.
-                </span>
-                <span className="block">One Workspace.</span>
-                <span className="block text-electric-blue">
-                  Superpowers for Every Role.
-                </span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-medium">
-                The unified AI platform that transforms how you work across every industry and role.
-              </p>
-            </div>
+          {/* Main Headline */}
+          <div className="hero-text space-y-6 max-w-6xl mx-auto">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight">
+              <span className="block text-foreground">One AI Workspace.</span>
+              <span className="block bg-gradient-to-r from-violet via-electric-blue to-neon-green bg-clip-text text-transparent">
+                Infinite Productivity.
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Build, plan, write, sell, ship — faster than ever. MindSuite brings your docs, dashboards, agents, and ideas together in one powerful AI-first workspace.
+            </p>
+          </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="electric-gradient hover:scale-105 transition-transform duration-300 text-lg px-8 py-6 shadow-lg hover:shadow-electric">
-                Explore MindSuite
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              
-              <Button 
-                size="lg" 
-                variant="outline" 
-                onClick={scrollToDemo}
-                className="glass border-electric-blue/30 hover:border-electric-blue/50 text-lg px-8 py-6 hover:bg-electric-blue/10 backdrop-blur-xl"
-              >
-                <Play className="mr-2 h-5 w-5" />
-                See Demo
-              </Button>
-            </div>
+          {/* CTA Buttons */}
+          <div className="hero-text flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button 
+              size="lg" 
+              className="electric-gradient hover:scale-105 transition-all duration-300 text-lg px-8 py-6 shadow-2xl hover:shadow-electric/50"
+            >
+              <Zap className="mr-2 h-5 w-5" />
+              Get Early Access
+            </Button>
+            
+            <Button 
+              size="lg" 
+              variant="ghost"
+              onClick={scrollToTools}
+              className="text-lg px-8 py-6 hover:bg-white/5 group"
+            >
+              <span className="mr-2">🧠</span>
+              Explore the Suite
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+        </div>
 
-            {/* Stats */}
-            <div className="flex flex-wrap gap-8 justify-center lg:justify-start pt-8">
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-electric-blue">70+</div>
-                <div className="text-sm text-muted-foreground">AI Tools</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-neon-green">12</div>
-                <div className="text-sm text-muted-foreground">Industries</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-soft-pink">1M+</div>
-                <div className="text-sm text-muted-foreground">Users</div>
-              </div>
+        {/* 3D Mockups */}
+        <div ref={mockupRef} className="relative mt-24 perspective-1000">
+          <div className="relative max-w-6xl mx-auto">
+            {/* Main workspace mockup */}
+            <div className="relative z-20 transform hover:scale-105 transition-transform duration-700">
+              <img 
+                src={workspaceMockup} 
+                alt="MindSuite Workspace" 
+                className="w-full h-auto rounded-3xl shadow-2xl border border-white/10"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl" />
+            </div>
+            
+            {/* Floating side mockups */}
+            <div className="absolute -left-32 top-32 z-10 transform -rotate-12 hover:rotate-0 transition-transform duration-700">
+              <img 
+                src={dashboardMockup} 
+                alt="AI Dashboard" 
+                className="w-80 h-auto rounded-2xl shadow-xl border border-white/10 opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </div>
+            
+            <div className="absolute -right-32 top-48 z-10 transform rotate-12 hover:rotate-0 transition-transform duration-700">
+              <img 
+                src={mobileMockup} 
+                alt="Mobile App" 
+                className="w-64 h-auto rounded-2xl shadow-xl border border-white/10 opacity-80 hover:opacity-100 transition-opacity"
+              />
             </div>
           </div>
 
-          {/* Right Visual */}
-          <div className="relative perspective-1000 flex justify-center">
-            <div className="relative">
-              {/* 3D Cube Container */}
-              <div className="cube-3d relative mx-auto" style={{ width: '200px', height: '200px' }}>
-                <div className="cube-face glass"></div>
-                <div className="cube-face glass"></div>
-                <div className="cube-face glass"></div>
-                <div className="cube-face glass"></div>
-                <div className="cube-face glass"></div>
-                <div className="cube-face glass"></div>
-              </div>
-              
-              {/* Hero Image Overlay */}
-              <img 
-                src={heroCube} 
-                alt="MindSuite 3D Workspace" 
-                className="absolute inset-0 w-full h-full object-cover rounded-3xl opacity-80 mix-blend-screen"
-              />
-              
-              {/* Glow Effect */}
-              <div className="absolute inset-0 rounded-3xl animate-glow" style={{ boxShadow: 'var(--shadow-electric)' }} />
-            </div>
-
-            {/* Floating Tool Icons */}
-            <div className="absolute inset-0">
-              {['📝', '📊', '🎯', '💡', '⚡', '🔮'].map((icon, i) => (
-                <div
-                  key={i}
-                  className="absolute text-2xl animate-float"
-                  style={{
-                    left: `${20 + (i % 3) * 30}%`,
-                    top: `${20 + Math.floor(i / 3) * 40}%`,
-                    animationDelay: `${i * 0.5}s`
-                  }}
-                >
-                  <div className="glass p-3 rounded-full border border-electric-blue/20">
-                    {icon}
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Glow effects */}
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-electric-blue/20 rounded-full blur-3xl opacity-30 animate-pulse" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-violet/20 rounded-full blur-3xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
         </div>
       </div>

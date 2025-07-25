@@ -36,7 +36,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90">
+    <section ref={heroRef} className="relative min-h-[100svh] lg:min-h-[120vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90">
       {/* Futuristic Particle Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-black/50 to-black/80" />
       
@@ -98,7 +98,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 py-20 lg:py-32">
         <div className="text-center space-y-12">
           {/* Command hint */}
           <div className="hero-text inline-flex items-center px-4 py-2 glass rounded-full border border-electric-blue/20 text-sm">
@@ -108,14 +108,14 @@ const HeroSection = () => {
 
           {/* Main Headline */}
           <div className="hero-text space-y-6 max-w-6xl mx-auto">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight">
               <span className="block text-foreground">One Suite.</span>
               <span className="block bg-gradient-to-r from-electric-blue via-violet to-soft-pink bg-clip-text text-transparent">
                 Every Tool You Need.
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Build, plan, write, sell, ship — faster than ever. MindSuite brings your docs, dashboards, agents, and ideas together in one powerful AI-first workspace.
             </p>
           </div>
@@ -144,7 +144,7 @@ const HeroSection = () => {
         </div>
 
         {/* 3D Mockups */}
-        <div ref={mockupRef} className="relative mt-24 perspective-1000">
+        <div ref={mockupRef} className="relative mt-16 lg:mt-24 perspective-1000">
           <div className="relative max-w-6xl mx-auto">
             {/* Main workspace mockup */}
             <div className="relative z-20 transform hover:scale-105 transition-transform duration-700">

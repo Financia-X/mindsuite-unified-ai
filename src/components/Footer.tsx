@@ -87,7 +87,7 @@ const Footer = () => {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-foreground">MindSuite</h3>
-                <p className="text-sm text-electric-blue">Where AI Meets Productivity</p>
+                <p className="text-sm" style={{ color: 'hsl(var(--electric-blue))' }}>Where AI Meets Productivity</p>
               </div>
             </div>
             
@@ -109,7 +109,13 @@ const Footer = () => {
                       <li key={linkIndex}>
                         <a 
                           href={link.href}
-                          className="flex items-center space-x-2 text-muted-foreground hover:text-electric-blue transition-colors duration-200 group"
+                           className="flex items-center space-x-2 text-muted-foreground transition-colors duration-200 group"
+                           style={{ 
+                             '--hover-color': 'hsl(var(--electric-blue))'
+                           } as React.CSSProperties}
+                           onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--electric-blue))'}
+                           onMouseLeave={(e) => e.currentTarget.style.color = ''}
+                         
                         >
                           {link.icon && (
                             <link.icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
@@ -133,11 +139,17 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-muted-foreground">
             <p>© 2024 MindSuite. All rights reserved.</p>
             <div className="flex items-center space-x-4">
-              <a href="#" className="hover:text-electric-blue transition-colors">Privacy</a>
+              <a href="#" className="transition-colors" 
+                 onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--electric-blue))'}
+                 onMouseLeave={(e) => e.currentTarget.style.color = ''}>Privacy</a>
               <span>•</span>
-              <a href="#" className="hover:text-electric-blue transition-colors">Terms</a>
+              <a href="#" className="transition-colors"
+                 onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--electric-blue))'}
+                 onMouseLeave={(e) => e.currentTarget.style.color = ''}>Terms</a>
               <span>•</span>
-              <a href="#" className="hover:text-electric-blue transition-colors">Security</a>
+              <a href="#" className="transition-colors"
+                 onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--electric-blue))'}
+                 onMouseLeave={(e) => e.currentTarget.style.color = ''}>Security</a>
             </div>
           </div>
 
@@ -149,10 +161,24 @@ const Footer = () => {
                 <a 
                   key={index}
                   href={social.href}
-                  className="w-10 h-10 glass rounded-full flex items-center justify-center border border-glass-border/30 hover:border-electric-blue/50 hover:bg-electric-blue/10 transition-all duration-300 group"
+                   className="w-10 h-10 glass rounded-full flex items-center justify-center border border-glass-border/30 transition-all duration-300 group"
+                   style={{
+                     '--hover-border': 'hsl(var(--electric-blue) / 0.5)',
+                     '--hover-bg': 'hsl(var(--electric-blue) / 0.1)'
+                   } as React.CSSProperties}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.borderColor = 'hsl(var(--electric-blue) / 0.5)';
+                     e.currentTarget.style.backgroundColor = 'hsl(var(--electric-blue) / 0.1)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.borderColor = '';
+                     e.currentTarget.style.backgroundColor = '';
+                   }}
                   aria-label={social.name}
                 >
-                  <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-electric-blue transition-colors duration-300" />
+                   <IconComponent className="w-5 h-5 text-muted-foreground transition-colors duration-300" 
+                     onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--electric-blue))'}
+                     onMouseLeave={(e) => e.currentTarget.style.color = ''} />
                 </a>
               );
             })}

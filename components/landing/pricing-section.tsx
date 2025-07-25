@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { pricingPlans } from "@/lib/data"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card"
+import { Button } from "../ui/button"
+import { pricingPlans } from "../../lib/data"
 import { Check } from "lucide-react"
 
 export function PricingSection() {

@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { testimonials } from "@/lib/data"
+import { Card, CardContent } from "../ui/card"
+import { testimonials } from "../../lib/data"
 
 export function TestimonialsSection() {
   return (

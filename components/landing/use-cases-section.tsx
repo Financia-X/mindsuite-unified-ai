@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useCases } from "@/lib/data"
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
+import { useCases } from "../../lib/data"
 
 export function UseCasesSection() {
   return (
